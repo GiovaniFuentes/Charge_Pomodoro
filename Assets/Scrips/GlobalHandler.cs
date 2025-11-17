@@ -6,22 +6,30 @@ using UnityEngine.SceneManagement;
 
 public class GlobalHandler : MonoBehaviour
 {
-    [SerializeField] float currentTimeLeft = 0.0f;
-    [SerializeField] float maxTime = 10.0f;
+    public static GlobalHandler Instance;
+    [SerializeField] public float currentTimeLeft = 0.0f;
+    [SerializeField] public float maxTime = 10.0f;
     [SerializeField] float startingBreakTime = 5.0f;
     [SerializeField] float fillRatio =0.02f;
-    [SerializeField] Image radialIndicator = null;
     public bool TimeFill = false;
     //awake is called when the object is created directly (I think)
     void Awake()
     {
-        //this is to make the object persistent across scenes
-        DontDestroyOnLoad(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentTimeLeft = startingBreakTime; 
+        ChangeScene("Main Page");
     }
 
     // Update is called once per frame
@@ -38,15 +46,15 @@ public class GlobalHandler : MonoBehaviour
                 currentTimeLeft -= fillRatio * Time.deltaTime;
             }
         }
-        radialIndicator.fillAmount = currentTimeLeft / maxTime;
+        
     }
 
-    public void ToggleTimeFill()
+    static public void ToggleTimeFill()
     {
-        TimeFill = !TimeFill;
+        Instance.TimeFill = !Instance.TimeFill;
     }
 
-    public void ChangeScene(string sceneName)
+    static public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
