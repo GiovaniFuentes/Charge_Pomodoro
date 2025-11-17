@@ -2,6 +2,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GlobalHandler : MonoBehaviour
 {
@@ -43,5 +44,10 @@ public class GlobalHandler : MonoBehaviour
     public void ToggleTimeFill()
     {
         TimeFill = !TimeFill;
+    }
+
+    public void ChangeScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
