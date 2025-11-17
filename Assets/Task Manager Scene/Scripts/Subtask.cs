@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class Subtask : MonoBehaviour
 {
     public Text labelText; // assign the Text child in prefab
-    // public Toggle doneToggle; // optional: assign if you used a Toggle
+    public Toggle doneToggle; 
 
     public void Initialize(string label)
     {

@@ -26,10 +26,9 @@ public class MainTask : MonoBehaviour
 
     void Start()
     {
-        if (addSubtaskButton != null)
-            addSubtaskButton.onClick.AddListener(CreateSubtask);
+       /* intentionaly empty */
     }
-
+/*
 public void CreateSubtask()
 {
     Debug.Log("Subtask button clicked!");
@@ -49,7 +48,33 @@ public void CreateSubtask()
     {
         st.Initialize("Subtask " + subtaskCounter);
     }
-}
+*/
+public void CreateSubtask()
+    {
+        Debug.Log("CreateSubtask called on " + gameObject.name);
 
+        if (subtaskPrefab == null || subtaskContainer == null)
+        {
+            Debug.LogWarning("SubtaskPrefab or subtaskContainer is null on " + gameObject.name);
+            return;
+        }
+
+        GameObject s = Instantiate(subtaskPrefab, subtaskContainer);
+        s.transform.SetParent(subtaskContainer, false);
+        subtaskCounter++;
+
+        Debug.Log("Instantiated subtask: " + s.name + " under " + subtaskContainer.name);
+
+        Subtask st = s.GetComponent<Subtask>();
+        if (st != null)
+        {
+            st.Initialize("Subtask " + subtaskCounter);
+        }
+
+        // extra debug: log rect info if it has RectTransform
+        RectTransform rt = s.GetComponent<RectTransform>();
+        if (rt != null)
+            Debug.Log($"Subtask rect: size={rt.rect.size}, anchoredPos={rt.anchoredPosition}");
+    }
 
 }
