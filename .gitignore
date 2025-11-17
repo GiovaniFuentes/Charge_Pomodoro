@@ -12,6 +12,8 @@
 **/[Bb]uilds/
 **/[Ll]ogs/
 **/[Uu]ser[Ss]ettings/
+UserSettings/
+MemoryCaptures/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -74,3 +76,33 @@ crashlytics-build.properties
 **/[Aa]ssets/[Ss]treamingAssets/aa.meta
 **/[Aa]ssets/[Ss]treamingAssets/aa/*
 Library/SourceAssetDB
+
+# Avoid OS-specific files
+.DS_Store
+Thumbs.db
+
+# Visual Studio / Rider / IDEs
+.vscode/
+.vs/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+
+# Packages
+Packages/manifest.json
+# If you want to store packages lock file, uncomment:
+# Packages/packages-lock.json
+
+# TextMeshPro Generated files
+Assets/TextMesh Pro/Resources/*
+
+# Crash reports
+sysreport/

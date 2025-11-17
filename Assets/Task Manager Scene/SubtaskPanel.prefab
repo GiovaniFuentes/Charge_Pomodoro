@@ -278,7 +278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
   m_IgnoreLayout: 0
   m_MinWidth: -1
-  m_MinHeight: 30
+  m_MinHeight: 100
   m_PreferredWidth: 1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
@@ -527,7 +527,8 @@ MonoBehaviour:
   m_text: Subtask
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 559af7d06710e4202ab798436325b0bc, type: 2}
-  m_sharedMaterial: {fileID: 2148132565787488754, guid: 559af7d06710e4202ab798436325b0bc, type: 2}
+  m_sharedMaterial: {fileID: 2148132565787488754, guid: 559af7d06710e4202ab798436325b0bc,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
