@@ -1,6 +1,69 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+
+public class Subtask : MonoBehaviour
+{
+    public TMP_InputField inputField; // assign InputField in prefab
+    public Toggle doneToggle;         // assign Toggle in prefab
+
+    private int mainIndex;
+    private int subIndex;
+
+    /// <summary>
+    /// Initialize the subtask with data from TaskDataManager
+    /// </summary>
+    public void Initialize(int mainIndex, int subIndex, string text, bool done)
+    {
+        this.mainIndex = mainIndex;
+        this.subIndex = subIndex;
+
+        if (inputField != null)
+        {
+            inputField.text = text;
+            inputField.onEndEdit.RemoveAllListeners();
+            inputField.onEndEdit.AddListener((string newText) =>
+            {
+                TaskDataManager.Instance.AllTasks.mainTasks[mainIndex]
+                    .subtasks[subIndex].text = newText;
+                TaskDataManager.Instance.Save();
+            });
+        }
+
+        if (doneToggle != null)
+        {
+            doneToggle.isOn = done;
+            doneToggle.onValueChanged.RemoveAllListeners();
+            doneToggle.onValueChanged.AddListener((bool val) =>
+            {
+                // Remove subtask from data
+                TaskDataManager.Instance.RemoveSubtask(mainIndex, subIndex);
+
+                // Destroy this UI object
+                Destroy(gameObject);
+
+                // If main task has no subtasks left, remove it
+                if (TaskDataManager.Instance.AllTasks.mainTasks[mainIndex].subtasks.Count == 0)
+                {
+                    TaskDataManager.Instance.RemoveMainTask(mainIndex);
+                }
+
+                TaskDataManager.Instance.Save();
+            });
+        }
+    }
+}
+
+
+
+
+
+
+/*
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Subtask : MonoBehaviour
 {
@@ -39,23 +102,6 @@ public class Subtask : MonoBehaviour
                 TaskDataManager.Instance.Save();
             });
         }
-    }
-}
-
-
-
-/*
-using UnityEngine;
-using UnityEngine.UI;
-
-public class Subtask : MonoBehaviour
-{
-    public Text labelText; // assign the Text child in prefab
-    public Toggle doneToggle; 
-
-    public void Initialize(string label)
-    {
-        if (labelText != null) labelText.text = label;
     }
 }
 */

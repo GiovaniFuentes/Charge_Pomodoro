@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7fb2bf6ffa7b4b3e8c98dd3344d62c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  labelInput: {fileID: 6420646722696659103}
+  inputField: {fileID: 6420646722696659103}
   doneToggle: {fileID: 4946684836388773185}
 --- !u!114 &1244600878912089621
 MonoBehaviour:

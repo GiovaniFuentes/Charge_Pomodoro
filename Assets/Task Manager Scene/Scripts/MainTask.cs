@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.UI; // For LayoutRebuilder
-using System;
+using UnityEngine.UI; // LayoutRebuilder
 
 public class MainTask : MonoBehaviour
 {
@@ -12,17 +11,11 @@ public class MainTask : MonoBehaviour
     public GameObject subtaskPrefab;
     public Transform subtaskContainer;
 
+    private int mainIndex;
     private int subtaskCounter = 0;
-    private int dataIndex = -1;
 
-    /// <summary>
-    /// Assign index of this main task in TaskDataManager
-    /// </summary>
-    public void SetDataIndex(int idx) => dataIndex = idx;
+    public void SetDataIndex(int index) => mainIndex = index;
 
-    /// <summary>
-    /// Initialize main task with title and hook events
-    /// </summary>
     public void Initialize(string title)
     {
         if (titleInput != null)
@@ -31,10 +24,7 @@ public class MainTask : MonoBehaviour
             titleInput.onEndEdit.RemoveAllListeners();
             titleInput.onEndEdit.AddListener((string newText) =>
             {
-                if (dataIndex >= 0)
-                {
-                    TaskDataManager.Instance.SetMainTitle(dataIndex, newText);
-                }
+                TaskDataManager.Instance.SetMainTitle(mainIndex, newText);
             });
         }
 
@@ -45,24 +35,18 @@ public class MainTask : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Called when user clicks + button to add a subtask
-    /// </summary>
     private void OnAddSubtaskClicked()
     {
-        if (dataIndex < 0) return;
+        string text = "Enter Subtask";
+        int subIndex = TaskDataManager.Instance.AllTasks.mainTasks[mainIndex].subtasks.Count;
 
-        // Add subtask to data
-        int subIndex = TaskDataManager.Instance.AllTasks.mainTasks[dataIndex].subtasks.Count;
-        TaskDataManager.Instance.AddSubtask(dataIndex, "Enter Subtask");
+        // Add to data first
+        TaskDataManager.Instance.AddSubtask(mainIndex, text);
 
         // Create UI
-        CreateSubtask("Enter Subtask", false, subIndex);
+        CreateSubtask(text, false, subIndex);
     }
 
-    /// <summary>
-    /// Creates a subtask under this main task with text and done state
-    /// </summary>
     public void CreateSubtask(string text, bool done, int subIndex)
     {
         if (subtaskPrefab == null || subtaskContainer == null) return;
@@ -73,22 +57,22 @@ public class MainTask : MonoBehaviour
 
         Subtask st = s.GetComponent<Subtask>();
         if (st != null)
-            st.Initialize(dataIndex, subIndex, text, done);
+            st.Initialize(mainIndex, subIndex, text, done);
 
-        RebuildLayouts();
+        // Force layout rebuild
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)subtaskContainer);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)this.transform);
     }
 
     /// <summary>
-    /// Rebuild UI layouts
+    /// For loading existing subtasks from JSON
     /// </summary>
-    private void RebuildLayouts()
+    public void LoadSubtaskFromData(string text, bool done, int subIndex)
     {
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)subtaskContainer);
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)this.transform);
-        if (this.transform.parent != null)
-            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)this.transform.parent);
+        CreateSubtask(text, done, subIndex);
     }
 }
+
 
 
 
