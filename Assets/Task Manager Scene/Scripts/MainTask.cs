@@ -1,5 +1,106 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.UI; // For LayoutRebuilder
+using System;
+
+public class MainTask : MonoBehaviour
+{
+    [Header("UI References")]
+    public TMP_InputField titleInput;
+    public Button addSubtaskButton;
+    public GameObject subtaskPrefab;
+    public Transform subtaskContainer;
+
+    private int subtaskCounter = 0;
+    private int dataIndex = -1;
+
+    /// <summary>
+    /// Assign index of this main task in TaskDataManager
+    /// </summary>
+    public void SetDataIndex(int idx) => dataIndex = idx;
+
+    /// <summary>
+    /// Initialize main task with title and hook events
+    /// </summary>
+    public void Initialize(string title)
+    {
+        if (titleInput != null)
+        {
+            titleInput.text = title;
+            titleInput.onEndEdit.RemoveAllListeners();
+            titleInput.onEndEdit.AddListener((string newText) =>
+            {
+                if (dataIndex >= 0)
+                {
+                    TaskDataManager.Instance.SetMainTitle(dataIndex, newText);
+                }
+            });
+        }
+
+        if (addSubtaskButton != null)
+        {
+            addSubtaskButton.onClick.RemoveAllListeners();
+            addSubtaskButton.onClick.AddListener(OnAddSubtaskClicked);
+        }
+    }
+
+    /// <summary>
+    /// Called when user clicks + button to add a subtask
+    /// </summary>
+    private void OnAddSubtaskClicked()
+    {
+        if (dataIndex < 0) return;
+
+        // Add subtask to data
+        int subIndex = TaskDataManager.Instance.AllTasks.mainTasks[dataIndex].subtasks.Count;
+        TaskDataManager.Instance.AddSubtask(dataIndex, "Enter Subtask");
+
+        // Create UI
+        CreateSubtask("Enter Subtask", false, subIndex);
+    }
+
+    /// <summary>
+    /// Creates a subtask under this main task with text and done state
+    /// </summary>
+    public void CreateSubtask(string text, bool done, int subIndex)
+    {
+        if (subtaskPrefab == null || subtaskContainer == null) return;
+
+        GameObject s = Instantiate(subtaskPrefab, subtaskContainer);
+        s.transform.SetParent(subtaskContainer, false);
+        subtaskCounter++;
+
+        Subtask st = s.GetComponent<Subtask>();
+        if (st != null)
+            st.Initialize(dataIndex, subIndex, text, done);
+
+        RebuildLayouts();
+    }
+
+    /// <summary>
+    /// Rebuild UI layouts
+    /// </summary>
+    private void RebuildLayouts()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)subtaskContainer);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)this.transform);
+        if (this.transform.parent != null)
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)this.transform.parent);
+    }
+}
+
+
+
+
+
+
+
+
+
+/*
+using UnityEngine;
+using UnityEngine.UI;
 using TMPro; 
 public class MainTask : MonoBehaviour
 {
@@ -26,8 +127,9 @@ public class MainTask : MonoBehaviour
 
     void Start()
     {
-       /* intentionaly empty */
+       intentionaly empty 
     }
+    /*
 /*
 public void CreateSubtask()
 {
@@ -48,7 +150,7 @@ public void CreateSubtask()
     {
         st.Initialize("Subtask " + subtaskCounter);
     }
-*/
+
 public void CreateSubtask()
     {
         Debug.Log("CreateSubtask called on " + gameObject.name);
@@ -78,3 +180,5 @@ public void CreateSubtask()
     }
 
 }
+
+*/
