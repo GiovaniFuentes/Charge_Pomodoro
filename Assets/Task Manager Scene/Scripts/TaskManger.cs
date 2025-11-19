@@ -1,79 +1,68 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Manages the UI for all main tasks and subtasks
-/// </summary>
 public class TaskManager : MonoBehaviour
 {
-    [Header("UI References")]
-    public GameObject mainTaskPrefab;   // Assign MainTask prefab
-    public Transform mainTaskContent;   // Content inside ScrollView
-    public Button addMainButton;        // + button for main tasks
+    public GameObject mainTaskPrefab;
+    public Transform mainTaskContent;
+    public Button addMainButton;
 
     private void Start()
     {
         if (addMainButton != null)
-            addMainButton.onClick.AddListener(OnAddMainTask);
+            addMainButton.onClick.AddListener(AddMainTask);
 
-        BuildUIFromData();
+        BuildAllMainTasks();
     }
 
-    /// <summary>
-    /// Builds the UI from saved TaskDataManager data
-    /// </summary>
-    private void BuildUIFromData()
+    private void BuildAllMainTasks()
     {
-        if (mainTaskPrefab == null || mainTaskContent == null) return;
-
-        // Clear existing children
+        // Clear existing children first
         foreach (Transform child in mainTaskContent)
-        {
             Destroy(child.gameObject);
-        }
 
-        var allTasks = TaskDataManager.Instance.AllTasks;
+        var allTasks = TaskDataManager.Instance.AllTasks.mainTasks;
 
-        for (int i = 0; i < allTasks.mainTasks.Count; i++)
+        for (int i = 0; i < allTasks.Count; i++)
         {
-            var taskData = allTasks.mainTasks[i];
-
-            // Create MainTask UI
             GameObject mainGO = Instantiate(mainTaskPrefab, mainTaskContent);
             MainTask mt = mainGO.GetComponent<MainTask>();
             if (mt != null)
             {
                 mt.SetDataIndex(i);
-                mt.Initialize(taskData.title);
+                mt.Initialize(allTasks[i].title);
 
-                // Create subtasks with proper indices and state
-                for (int j = 0; j < taskData.subtasks.Count; j++)
+                // Rebuild subtasks for this main task
+                for (int j = 0; j < allTasks[i].subtasks.Count; j++)
                 {
-                    var sub = taskData.subtasks[j];
+                    var sub = allTasks[i].subtasks[j];
                     mt.CreateSubtask(sub.text, sub.done, j);
                 }
             }
         }
     }
 
-    /// <summary>
-    /// Adds a new main task when user clicks + button
-    /// </summary>
-    private void OnAddMainTask()
+    private void AddMainTask()
     {
-        // Add to data first
-        int mainIndex = TaskDataManager.Instance.AddMainTask("New Task");
+        int index = TaskDataManager.Instance.AddMainTask("New Task");
 
-        // Create MainTask UI
+        // Automatically add first subtask
+        TaskDataManager.Instance.AddSubtask(index, "Enter Subtask");
+
         GameObject mainGO = Instantiate(mainTaskPrefab, mainTaskContent);
         MainTask mt = mainGO.GetComponent<MainTask>();
         if (mt != null)
         {
-            mt.SetDataIndex(mainIndex);
+            mt.SetDataIndex(index);
             mt.Initialize("New Task");
+
+            // Create the first subtask in UI
+            mt.CreateSubtask("Enter Subtask", false, 0);
         }
     }
 }
+
+
 
 
 

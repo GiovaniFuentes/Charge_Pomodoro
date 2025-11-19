@@ -1,32 +1,29 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
 
 public class Subtask : MonoBehaviour
 {
-    public TMP_InputField inputField; // assign InputField in prefab
-    public Toggle doneToggle;         // assign Toggle in prefab
+    public TMP_InputField inputField;
+    public Toggle doneToggle;
 
     private int mainIndex;
     private int subIndex;
+    private MainTask parentTask;
 
-    /// <summary>
-    /// Initialize the subtask with data from TaskDataManager
-    /// </summary>
-    public void Initialize(int mainIndex, int subIndex, string text, bool done)
+    public void Initialize(int mainIdx, int subIdx, string text, bool done, MainTask parent)
     {
-        this.mainIndex = mainIndex;
-        this.subIndex = subIndex;
+        mainIndex = mainIdx;
+        subIndex = subIdx;
+        parentTask = parent;
 
         if (inputField != null)
         {
             inputField.text = text;
             inputField.onEndEdit.RemoveAllListeners();
-            inputField.onEndEdit.AddListener((string newText) =>
+            inputField.onEndEdit.AddListener(newText =>
             {
-                TaskDataManager.Instance.AllTasks.mainTasks[mainIndex]
-                    .subtasks[subIndex].text = newText;
+                TaskDataManager.Instance.AllTasks.mainTasks[mainIndex].subtasks[subIndex].text = newText;
                 TaskDataManager.Instance.Save();
             });
         }
@@ -35,25 +32,33 @@ public class Subtask : MonoBehaviour
         {
             doneToggle.isOn = done;
             doneToggle.onValueChanged.RemoveAllListeners();
-            doneToggle.onValueChanged.AddListener((bool val) =>
-            {
-                // Remove subtask from data
-                TaskDataManager.Instance.RemoveSubtask(mainIndex, subIndex);
+            doneToggle.onValueChanged.AddListener(OnDoneToggled);
+        }
+    }
 
-                // Destroy this UI object
-                Destroy(gameObject);
+    private void OnDoneToggled(bool val)
+    {
+        // Remove subtask from data
+        TaskDataManager.Instance.RemoveSubtask(mainIndex, subIndex);
+        TaskDataManager.Instance.Save();
 
-                // If main task has no subtasks left, remove it
-                if (TaskDataManager.Instance.AllTasks.mainTasks[mainIndex].subtasks.Count == 0)
-                {
-                    TaskDataManager.Instance.RemoveMainTask(mainIndex);
-                }
+        Destroy(gameObject);
 
-                TaskDataManager.Instance.Save();
-            });
+        // Remove main task if last subtask
+        if (TaskDataManager.Instance.AllTasks.mainTasks.Count > mainIndex &&
+            TaskDataManager.Instance.AllTasks.mainTasks[mainIndex].subtasks.Count == 0)
+        {
+            TaskDataManager.Instance.RemoveMainTask(mainIndex);
+            TaskDataManager.Instance.Save();
+            parentTask?.DestroySelf();
         }
     }
 }
+
+
+
+
+
 
 
 

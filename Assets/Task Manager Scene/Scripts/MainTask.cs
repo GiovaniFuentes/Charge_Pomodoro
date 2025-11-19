@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.UI; // LayoutRebuilder
+using System;
 
 public class MainTask : MonoBehaviour
 {
@@ -11,10 +12,9 @@ public class MainTask : MonoBehaviour
     public GameObject subtaskPrefab;
     public Transform subtaskContainer;
 
-    private int mainIndex;
-    private int subtaskCounter = 0;
+    private int dataIndex = -1;
 
-    public void SetDataIndex(int index) => mainIndex = index;
+    public void SetDataIndex(int idx) => dataIndex = idx;
 
     public void Initialize(string title)
     {
@@ -22,9 +22,10 @@ public class MainTask : MonoBehaviour
         {
             titleInput.text = title;
             titleInput.onEndEdit.RemoveAllListeners();
-            titleInput.onEndEdit.AddListener((string newText) =>
+            titleInput.onEndEdit.AddListener(newText =>
             {
-                TaskDataManager.Instance.SetMainTitle(mainIndex, newText);
+                if (dataIndex >= 0)
+                    TaskDataManager.Instance.SetMainTitle(dataIndex, newText);
             });
         }
 
@@ -33,18 +34,22 @@ public class MainTask : MonoBehaviour
             addSubtaskButton.onClick.RemoveAllListeners();
             addSubtaskButton.onClick.AddListener(OnAddSubtaskClicked);
         }
+
+        // If no subtasks exist yet, add one by default
+        if (TaskDataManager.Instance.AllTasks.mainTasks[dataIndex].subtasks.Count == 0)
+        {
+            OnAddSubtaskClicked();
+        }
     }
 
     private void OnAddSubtaskClicked()
     {
-        string text = "Enter Subtask";
-        int subIndex = TaskDataManager.Instance.AllTasks.mainTasks[mainIndex].subtasks.Count;
+        if (dataIndex < 0) return;
 
-        // Add to data first
-        TaskDataManager.Instance.AddSubtask(mainIndex, text);
+        int subIndex = TaskDataManager.Instance.AllTasks.mainTasks[dataIndex].subtasks.Count;
+        TaskDataManager.Instance.AddSubtask(dataIndex, "Enter Subtask");
 
-        // Create UI
-        CreateSubtask(text, false, subIndex);
+        CreateSubtask("Enter Subtask", false, subIndex);
     }
 
     public void CreateSubtask(string text, bool done, int subIndex)
@@ -53,25 +58,29 @@ public class MainTask : MonoBehaviour
 
         GameObject s = Instantiate(subtaskPrefab, subtaskContainer);
         s.transform.SetParent(subtaskContainer, false);
-        subtaskCounter++;
 
         Subtask st = s.GetComponent<Subtask>();
         if (st != null)
-            st.Initialize(mainIndex, subIndex, text, done);
+            st.Initialize(dataIndex, subIndex, text, done, this);
 
-        // Force layout rebuild
+        RebuildLayouts();
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
+
+    private void RebuildLayouts()
+    {
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)subtaskContainer);
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)this.transform);
-    }
-
-    /// <summary>
-    /// For loading existing subtasks from JSON
-    /// </summary>
-    public void LoadSubtaskFromData(string text, bool done, int subIndex)
-    {
-        CreateSubtask(text, done, subIndex);
+        if (transform.parent != null)
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)transform.parent);
     }
 }
+
+
 
 
 
