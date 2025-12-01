@@ -132,7 +132,7 @@ public class TaskDataManager : MonoBehaviour
     // ----------------------
     // Validation helpers
     // ----------------------
-    private bool IsValidMainIndex(int index) => index >= 0 && index < AllTasks.mainTasks.Count;
+    public bool IsValidMainIndex(int index) => index >= 0 && index < AllTasks.mainTasks.Count;
     private bool IsValidSubtaskIndex(int mainIndex, int subIndex) =>
         IsValidMainIndex(mainIndex) && subIndex >= 0 && subIndex < AllTasks.mainTasks[mainIndex].subtasks.Count;
 }

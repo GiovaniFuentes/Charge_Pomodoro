@@ -8,7 +8,7 @@ public class GlobalHandler : MonoBehaviour
 {
     public static GlobalHandler Instance;
     [SerializeField] public float currentTimeLeft = 0.0f;
-    [SerializeField] public float maxTime = 10.0f;
+    [SerializeField] public float maxTime = 30*60.0f;
     [SerializeField] float startingBreakTime = 5.0f;
     [SerializeField] float fillRatio =0.02f;
     public bool TimeFill = false;
@@ -37,13 +37,13 @@ public class GlobalHandler : MonoBehaviour
     {
         if(TimeFill && currentTimeLeft < maxTime)
         {
-            currentTimeLeft += fillRatio * Time.deltaTime;
+            currentTimeLeft += Time.deltaTime * fillRatio;
         }
         else
         {
             if(currentTimeLeft > 0)
             {
-                currentTimeLeft -= fillRatio * Time.deltaTime;
+                currentTimeLeft -= Time.deltaTime;
             }
         }
 

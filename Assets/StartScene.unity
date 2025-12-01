@@ -130,11 +130,21 @@ PrefabInstance:
     - target: {fileID: 1228455214514537156, guid: 8f2a4d7fa1a2e6d4782795e4ea66772d,
         type: 3}
       propertyPath: maxTime
-      value: 500
+      value: 3600
       objectReference: {fileID: 0}
     - target: {fileID: 1228455214514537156, guid: 8f2a4d7fa1a2e6d4782795e4ea66772d,
         type: 3}
       propertyPath: TimeFill
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228455214514537156, guid: 8f2a4d7fa1a2e6d4782795e4ea66772d,
+        type: 3}
+      propertyPath: fillRatio
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228455214514537156, guid: 8f2a4d7fa1a2e6d4782795e4ea66772d,
+        type: 3}
+      propertyPath: startingBreakTime
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1439296860097918352, guid: 8f2a4d7fa1a2e6d4782795e4ea66772d,
