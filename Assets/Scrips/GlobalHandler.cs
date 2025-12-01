@@ -46,6 +46,14 @@ public class GlobalHandler : MonoBehaviour
                 currentTimeLeft -= fillRatio * Time.deltaTime;
             }
         }
+
+        // Check if the Escape key was pressed
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Quits the application (only works in a built game)
+            Application.Quit();
+            Debug.Log("Application quit."); // Optional: For testing in the editor
+        }
         
     }
 

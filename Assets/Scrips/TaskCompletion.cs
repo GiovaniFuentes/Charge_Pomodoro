@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class TaskCompletion : MonoBehaviour
 {
-    [SerializeField] GlobalHandler globalHander;
+    [SerializeField] TMP_Text text;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,7 +14,7 @@ public class TaskCompletion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        text.text = TaskDataManager.Instance.AllTasks.mainTasks[0].title;
     }
 
     public void OnClick()

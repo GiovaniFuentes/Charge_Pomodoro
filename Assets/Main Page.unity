@@ -600,7 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c81baaac368ca49a963dcba48b4dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalHander: {fileID: 0}
+  text: {fileID: 1795329728}
 --- !u!114 &902928454
 MonoBehaviour:
   m_ObjectHideFlags: 0
