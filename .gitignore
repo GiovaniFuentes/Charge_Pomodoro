@@ -97,7 +97,7 @@ Thumbs.db
 *.pdb
 
 # Packages
-Packages/manifest.json
+#Packages/manifest.json
 # If you want to store packages lock file, uncomment:
 # Packages/packages-lock.json
 
