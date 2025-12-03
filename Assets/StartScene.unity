@@ -140,7 +140,7 @@ PrefabInstance:
     - target: {fileID: 1228455214514537156, guid: 8f2a4d7fa1a2e6d4782795e4ea66772d,
         type: 3}
       propertyPath: fillRatio
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1228455214514537156, guid: 8f2a4d7fa1a2e6d4782795e4ea66772d,
         type: 3}

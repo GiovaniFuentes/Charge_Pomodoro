@@ -16,7 +16,8 @@ public class RadialBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        radialIndicator.fillAmount = GlobalHandler.Instance.currentTimeLeft / GlobalHandler.Instance.maxTime;
+        float personalmax = Mathf.Pow(GlobalHandler.Instance.currentTimeLeft /GlobalHandler.Instance.maxTime, 0.8f); 
+        radialIndicator.fillAmount =  personalmax;
         int hours   = Mathf.FloorToInt(GlobalHandler.Instance.currentTimeLeft / 3600f);
         int minutes = Mathf.FloorToInt((GlobalHandler.Instance.currentTimeLeft % 3600f) / 60f);
         int seconds = Mathf.FloorToInt(GlobalHandler.Instance.currentTimeLeft % 60f);

@@ -11,6 +11,7 @@ public class GlobalHandler : MonoBehaviour
     [SerializeField] public float maxTime = 30*60.0f;
     [SerializeField] float startingBreakTime = 5.0f;
     [SerializeField] float fillRatio =0.02f;
+
     public bool TimeFill = false;
     //awake is called when the object is created directly (I think)
     void Awake()
@@ -45,6 +46,10 @@ public class GlobalHandler : MonoBehaviour
             {
                 currentTimeLeft -= Time.deltaTime;
             }
+            if(currentTimeLeft < 0)
+            {
+                currentTimeLeft = 0;
+            }
         }
 
         // Check if the Escape key was pressed
@@ -65,5 +70,20 @@ public class GlobalHandler : MonoBehaviour
     static public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void SetStartingTime(float _startingBreakTime)
+    {
+        Instance.startingBreakTime = _startingBreakTime;
+    }
+
+    public void SetMaxTime(float _maxTime)
+    {
+        Instance.maxTime = _maxTime;
+    }
+
+    public void SetFillRatio(float _fillRatio)
+    {
+        Instance.fillRatio = _fillRatio;
     }
 }
