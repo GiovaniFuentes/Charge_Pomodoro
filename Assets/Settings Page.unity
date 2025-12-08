@@ -1162,6 +1162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 335296211}
   - component: {fileID: 335296212}
+  - component: {fileID: 335296213}
   m_Layer: 5
   m_Name: fillDepleteToggles
   m_TagString: Untagged
@@ -1237,8 +1238,35 @@ MonoBehaviour:
   m_Group: {fileID: 1252388501}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 335296213}
+        m_TargetAssemblyTypeName: NewMonoBehaviourScript, Assembly-CSharp
+        m_MethodName: changeSetting
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
+--- !u!114 &335296213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335296210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 335392a14d181274294b48fc5d92b167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 703121668}
+  myToggle: {fileID: 335296212}
+  setting: 1
 --- !u!1 &375063159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,6 +1532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 417333936}
   - component: {fileID: 417333937}
+  - component: {fileID: 417333938}
   m_Layer: 5
   m_Name: Chill Time Toggles
   m_TagString: Untagged
@@ -1579,8 +1608,35 @@ MonoBehaviour:
   m_Group: {fileID: 1462808946}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 417333938}
+        m_TargetAssemblyTypeName: NewMonoBehaviourScript, Assembly-CSharp
+        m_MethodName: changeSetting
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
+--- !u!114 &417333938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417333935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 335392a14d181274294b48fc5d92b167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 696809162}
+  myToggle: {fileID: 417333937}
+  setting: 2
 --- !u!1 &442190161
 GameObject:
   m_ObjectHideFlags: 0
@@ -3968,6 +4024,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1128651551}
   - component: {fileID: 1128651552}
+  - component: {fileID: 1128651553}
   m_Layer: 5
   m_Name: Toggle (3)
   m_TagString: Untagged
@@ -4043,8 +4100,35 @@ MonoBehaviour:
   m_Group: {fileID: 510200093}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1128651553}
+        m_TargetAssemblyTypeName: NewMonoBehaviourScript, Assembly-CSharp
+        m_MethodName: changeSetting
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
+--- !u!114 &1128651553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128651550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 335392a14d181274294b48fc5d92b167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 176110232}
+  myToggle: {fileID: 1128651552}
+  setting: 0
 --- !u!1 &1225512294
 GameObject:
   m_ObjectHideFlags: 0
