@@ -189,7 +189,8 @@ MonoBehaviour:
   m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 559af7d06710e4202ab798436325b0bc, type: 2}
-  m_sharedMaterial: {fileID: 2148132565787488754, guid: 559af7d06710e4202ab798436325b0bc, type: 2}
+  m_sharedMaterial: {fileID: 2148132565787488754, guid: 559af7d06710e4202ab798436325b0bc,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -291,7 +292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960, y: -55}
+  m_AnchoredPosition: {x: 148.5, y: -55}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7335674546127368181
@@ -350,6 +351,7 @@ GameObject:
   - component: {fileID: 5264958267012943798}
   - component: {fileID: 8499124765960540405}
   - component: {fileID: 5235409028337559303}
+  - component: {fileID: 9219716986992693026}
   m_Layer: 5
   m_Name: MainTaskCard
   m_TagString: Untagged
@@ -465,7 +467,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainTask
   titleInput: {fileID: 5790510051891257260}
   addSubtaskButton: {fileID: 1846942618951444355}
-  subtaskPrefab: {fileID: 4090857008085464854, guid: 29e7db8669a1743998d1d56e563e70e8, type: 3}
+  subtaskPrefab: {fileID: 4090857008085464854, guid: 29e7db8669a1743998d1d56e563e70e8,
+    type: 3}
   subtaskContainer: {fileID: 3872800233792453354}
 --- !u!114 &8499124765960540405
 MonoBehaviour:
@@ -507,6 +510,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!225 &9219716986992693026
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3209978949150854220}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4216573697757439587
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +591,8 @@ MonoBehaviour:
   m_text: Enter text...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 559af7d06710e4202ab798436325b0bc, type: 2}
-  m_sharedMaterial: {fileID: 2148132565787488754, guid: 559af7d06710e4202ab798436325b0bc, type: 2}
+  m_sharedMaterial: {fileID: 2148132565787488754, guid: 559af7d06710e4202ab798436325b0bc,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -963,7 +979,8 @@ MonoBehaviour:
   m_text: +
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 559af7d06710e4202ab798436325b0bc, type: 2}
-  m_sharedMaterial: {fileID: 2148132565787488754, guid: 559af7d06710e4202ab798436325b0bc, type: 2}
+  m_sharedMaterial: {fileID: 2148132565787488754, guid: 559af7d06710e4202ab798436325b0bc,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
